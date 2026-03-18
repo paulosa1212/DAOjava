@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Cadastro {
+public class Cadastro  implements Serializable {
     private int id;
     private String nome;
     private LocalDate dataNascimento;
