@@ -76,7 +76,7 @@ public class CadastroDAOImpl implements CadastroDAO {
             st.setString(1, nome);
             st.setDate(2, java.sql.Date.valueOf(datanascimento));
             st.setString(3, telefone);
-            st.setString(4,cpf );
+            st.setString(4, cpf);
 
             st.executeUpdate();
             System.out.println("CADASTRO ATUALIZADO!");
@@ -85,6 +85,34 @@ public class CadastroDAOImpl implements CadastroDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Cadastro buscarCadastro(String cpf) {
+        String sql = "SELECT * FROM cadastros where cpf=?";
+        try (Connection con = ConexaoSql.getconnection();
+             PreparedStatement st = con.prepareStatement(sql)
+        ) {
+            st.setString(1, cpf);
+            try (ResultSet rs = st.executeQuery();) {
+
+
+                if (rs.next()) {
+                    return new Cadastro(
+                            rs.getInt("id"),
+                            rs.getString("nome"),
+                            rs.getDate("data_nascimento").toLocalDate(),
+                            rs.getString("cpf"),
+                            rs.getString("telefone")
+                    );
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
