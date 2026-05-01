@@ -7,7 +7,7 @@ public class Cadastro  implements Serializable {
     private LocalDate dataNascimento;
     private String cpf;
     private String telefone;
-    private String endereco;
+
 
     public Cadastro() {
     }
